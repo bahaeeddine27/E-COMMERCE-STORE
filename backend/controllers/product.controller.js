@@ -139,4 +139,4 @@ async function updateFeaturedProductsCache() {
     } catch (error) {
         console.log("Error in update cache function");
     }  
-}
+};
