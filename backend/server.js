@@ -5,6 +5,7 @@ import productRoutes from "./routes/product.route.js";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./lib/db.js";
 
+// load environment variables
 dotenv.config();
 
 const app = express();
