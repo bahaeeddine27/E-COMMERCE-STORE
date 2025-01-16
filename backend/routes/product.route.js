@@ -3,7 +3,7 @@ import { deleteProduct ,createProduct ,getProductsByCategory ,getAllProducts ,ge
 import { protectRoute, adminRoute } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
-
+ //product routes
 router.get("/", protectRoute, adminRoute, getAllProducts);
 router.get("/featured", getFeaturedProducts);
 router.get("/category/:category", getProductsByCategory);
