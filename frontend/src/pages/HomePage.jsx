@@ -4,7 +4,7 @@ const categories = [
   { href: "cables", name: "Cables", imageUrl: "/product.jpg" },
   { href: "téléphones", name: "Téléphones", imageUrl: "/product.jpg" },
   { href: "ipads", name: "Ipads", imageUrl: "/product.jpg" },
-  { href: "écouteurs", name: "Ecouteurs", imageUrl: "/product.jpg" },
+  { href: "ecouteurs", name: "Ecouteurs", imageUrl: "/product.jpg" },
   { href: "adabtateurs", name: "Adabtateurs", imageUrl: "/product.jpg" },
   { href: "e-books", name: "E-books", imageUrl: "/product.jpg" },
 ];

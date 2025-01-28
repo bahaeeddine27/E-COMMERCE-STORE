@@ -27,7 +27,7 @@ const SignUpPage = () => {
         transition={{ duration: 0.8 }}
       >
         <h2 className="mt-6 text-center text-3xl font-extrabold text-emerald-400">
-          Create your account
+          Créer votre compte
         </h2>
       </motion.div>
       <motion.div
@@ -40,7 +40,7 @@ const SignUpPage = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-300">
-                Full name
+                Nom Complet
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -59,7 +59,7 @@ const SignUpPage = () => {
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                Email Address
+                Adresse mail
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -78,7 +78,7 @@ const SignUpPage = () => {
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                Password
+                Mot de passe
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -97,7 +97,7 @@ const SignUpPage = () => {
             </div>
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300">
-                Confirm Password
+                Confirmation de mot de passe
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -123,20 +123,20 @@ const SignUpPage = () => {
                 {loading ? (
                   <>
                     <Loader className="mr-2 h-5 w-5 animate-spin" aria-hidden="true" />
-                    Loading...
+                    Chargement...
                   </>
                 ) : (
                   <>
                     <UserPlus className="mr-2 h-5 w-5" aria-hidden="true" />
-                    Sign Up
+                    S'enregistrer
                   </>
                 )}
               </button>
             </div>
             <div className="text-center text-sm text-gray-400">
-              Already have an account?{" "}
+              Déjà membre ?{" "}
               <Link to="/login" className="text-emerald-400 hover:underline">
-                Log in <ArrowRight className="inline-block h-4 w-4" />
+                Connexion <ArrowRight className="inline-block h-4 w-4" />
               </Link>
             </div>
           </form>

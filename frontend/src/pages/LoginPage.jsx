@@ -24,7 +24,7 @@ const LoginPage = () => {
                 transition={{ duration: 0.8 }}
             >
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-emerald-400">
-                    Login to your account
+                    Connexion à votre compte
                 </h2>
             </motion.div>
             <motion.div
@@ -41,7 +41,7 @@ const LoginPage = () => {
                                 htmlFor="email"
                                 className="block text-sm font-medium text-gray-300"
                             >
-                                Email Address
+                                Adresse mail
                             </label>
                             <div className="mt-1 relative rounded-md shadow-sm">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -64,7 +64,7 @@ const LoginPage = () => {
                                 htmlFor="password"
                                 className="block text-sm font-medium text-gray-300"
                             >
-                                Password
+                                Mot de passe
                             </label>
                             <div className="mt-1 relative rounded-md shadow-sm">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -91,21 +91,21 @@ const LoginPage = () => {
                                 {loading ? (
                                     <>
                                         <Loader className="mr-2 h-5 w-5 animate-spin" aria-hidden="true" />
-                                        Loading...
+                                        Chargement...
                                     </>
                                 ) : (
                                     <>
                                         <LogIn className="mr-2 h-5 w-5" aria-hidden="true" />
-                                        Login
+                                        Connexion
                                     </>
                                 )}
                             </button>
                         </div>
                         {/* Redirect to Sign Up */}
                         <div className="text-center text-sm text-gray-400">
-                            Not a member?{" "}
+                            Vous êtes pas encore inscrit ?{" "}
                             <Link to="/signup" className="text-emerald-400 hover:underline">
-                                Sign up <ArrowRight className="inline-block h-4 w-4" />
+                                S'enregistrer <ArrowRight className="inline-block h-4 w-4" />
                             </Link>
                         </div>
                     </form>

@@ -36,6 +36,22 @@ export const useProductStore = create((set) => ({
     }
   },
 
+  fetchProductsByCategory: async (category) => {
+    set({ loading: true });
+    console.log(`Fetching products for category: ${category}`);
+    try {
+      const response = await axios.get(`/products/category/${category}`);
+      console.log("API Response:", response.data);
+      set({ products: response.data.products, loading: false });
+    } catch (error) {
+      console.error("Error fetching products:", error.response?.data || error.message);
+      toast.error(
+        error.response?.data?.error ||
+          "Impossible de récupérer les produits par catégorie."
+      );
+      set({ loading: false });
+    }
+  },
   deleteProduct: async (id) => {
     set({ loading: true });
     try {
