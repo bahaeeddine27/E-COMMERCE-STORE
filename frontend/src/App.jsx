@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUserStore } from './stores/useUserStore.js';
 import LoadingSpinner from './components/LoadingSpinner.jsx';
+import AdminPage from './pages/AdminPage.jsx';
 
 function App() {
   const {user, checkAuth, checkingAuth} = useUserStore();
@@ -34,6 +35,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/signup' element={!user ? <SignUpPage /> : <Navigate to='/' />} />
         <Route path='/login' element={!user ? <LoginPage /> : <Navigate to='/' />} />
+        <Route path='/secret-dashboard' element={user?.role === 'admin' ? <AdminPage /> : <Navigate to='/login' />} />
         </Routes>
         </div>
         <Toaster />
@@ -42,4 +44,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

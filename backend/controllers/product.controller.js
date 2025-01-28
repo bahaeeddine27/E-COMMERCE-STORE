@@ -35,13 +35,15 @@ export const getFeaturedProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, description, price, images, category } = req.body;
+        const { name, description, price, image, category } = req.body; // Assurez-vous que 'image' est utilisé partout
         let cloudinaryResponse = null;
 
+        // Vérifiez si une image a été envoyée
         if (image) {
             cloudinaryResponse = await cloudinary.uploader.upload(image, { folder: "products" });
         }
 
+        // Créez le produit avec l'URL de l'image
         const product = await Product.create({
             name,
             description,
@@ -56,6 +58,7 @@ export const createProduct = async (req, res) => {
         res.status(500).json({ message: "Server Error", error: error.message });
     }
 };
+
 
 export const deleteProduct = async (req, res) => {
     try {
