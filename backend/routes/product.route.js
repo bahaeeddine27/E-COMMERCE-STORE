@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteProduct ,createProduct ,getProductsByCategory ,getAllProducts ,getRecommendedProducts ,getFeaturedProducts ,toggleFeaturedProduct } from "../controllers/product.controller.js";
+import { deleteProduct ,createProduct ,getProductsByCategory ,getAllProducts ,getRecommendedProducts ,getFeaturedProducts ,toggleFeaturedProduct, updateProductPrice } from "../controllers/product.controller.js";
 import { protectRoute, adminRoute } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
@@ -11,5 +11,6 @@ router.get("/recommendations", getRecommendedProducts);
 router.post("/", protectRoute, adminRoute, createProduct);
 router.patch("/:id", protectRoute, adminRoute, toggleFeaturedProduct);
 router.delete("/:id", protectRoute, adminRoute, deleteProduct);
+router.patch("/:id/price", protectRoute, adminRoute, updateProductPrice);
 
 export default router;

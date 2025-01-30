@@ -135,6 +135,31 @@ export const toggleFeaturedProduct = async (req, res) => {
     }
 };
 
+export const updateProductPrice = async (req, res) => {
+    const { id } = req.params;
+    const { price } = req.body;  // On récupère le nouveau prix dans le corps de la requête
+
+    try {
+        const product = await Product.findById(id);
+        
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        // Mettre à jour le prix
+        product.price = price;
+        const updatedProduct = await product.save();  // Sauvegarde le produit mis à jour
+        
+        // Mettre à jour le cache si nécessaire
+        await updateFeaturedProductsCache();
+
+        res.json(updatedProduct);  // Retourne le produit mis à jour
+    } catch (error) {
+        console.log("Error in updateProductPrice controller", error.message);
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+};
+
 async function updateFeaturedProductsCache() {
     try {
         const featuredProducts = await Product.find({ isFeatured: true }).lean();

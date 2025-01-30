@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PlusCircle, Upload, Loader } from "lucide-react";
 import { useProductStore } from "../stores/useProductStore";
 
-const categories = ["chargeurs", "cables", "téléphones", "ipads", "ecouteurs", "adabtateurs", "e-books"];
+const categories = ["e-books", "cours"];
 const CreateProductForm = () => {
   const [newProduct, setNewProduct] = useState({
     name: "",
@@ -12,7 +12,7 @@ const CreateProductForm = () => {
     category: "",
     image: "",
   });
-  const {createProduct, loading} = useProductStore();
+  const {createProduct} = useProductStore();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
@@ -111,23 +111,15 @@ const CreateProductForm = () => {
           </label>
           {newProduct.image && <span className="ml-3 text-sm text-gray-400">Image téléversé</span>}
         </div>
-        <button type='submit' className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50" disabled={loading}>
-          {loading ? (
-            <>
-            <Loader className="mr-2 h-5 w-5 animate-spin" aria-hidden='true' />
-            Loading...
-            </>
-          ) : (
+        <button type='submit' className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50">
             <>
             <PlusCircle className="mr-2 h-5 w-5" />
             Créer un produit
             </>
-          )
-          }
         </button>
       </form>
     </motion.div>
   )
 }
 
-export default CreateProductForm
+export default CreateProductForm;

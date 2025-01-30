@@ -13,6 +13,12 @@ import AdminPage from './pages/AdminPage.jsx';
 import CategoryPage from './pages/CategoryPage.jsx';
 import CartPage from './pages/CartPage.jsx';
 import { useCartStore } from './stores/useCartStore.js';
+import PurchaseSuccessPage from './pages/PurchaseSuccessPage.jsx';
+import PurchaseCancelPage from './pages/PurchaseCancelPage.jsx';
+import Footer from './components/Footer.jsx';
+import MentionsLegalesPage from './pages/MentionsLegalesPage.jsx';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage.jsx';
+import TermsOfSalePage from './pages/TermsOfSalePage.jsx';
 
 function App() {
   const {user, checkAuth, checkingAuth} = useUserStore();
@@ -45,7 +51,13 @@ function App() {
         <Route path='/secret-dashboard' element={user?.role === 'admin' ? <AdminPage /> : <Navigate to='/login' />} />
         <Route path='/category/:category' element={<CategoryPage />} />
         <Route path='/cart' element={user ? <CartPage /> : <Navigate to='/login' />} />
+        <Route path='/purchase-success' element={user ? <PurchaseSuccessPage /> : <Navigate to='/login' />} />
+        <Route path='/purchase-cancel' element={user ? <PurchaseCancelPage /> : <Navigate to='/login' />} />
+        <Route path='/mentions-legales' element={<MentionsLegalesPage />} />
+        <Route path='/politique-de-confidentialite' element={<PrivacyPolicyPage />} />
+        <Route path='/conditions-de-vente' element={<TermsOfSalePage />} />
         </Routes>
+        <Footer />
         </div>
         <Toaster />
         <ToastContainer />

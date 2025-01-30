@@ -1,15 +1,30 @@
 import { motion } from "framer-motion";
-import { Trash, Star } from "lucide-react";
-import { useEffect } from "react";
+import { Trash, Star, Edit } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useProductStore } from "../stores/useProductStore.js";
 
 const ProductsList = () => {
-  const { deleteProduct, toggleFeaturedProduct, fetchAllProducts, products } = useProductStore();
-
+  const { deleteProduct, toggleFeaturedProduct, fetchAllProducts, products, updateProductPrice } = useProductStore();
+  
+  // State pour gérer la modification du prix
+  const [editingPrice, setEditingPrice] = useState(null);
+  const [newPrice, setNewPrice] = useState("");
+  
   // Fetch products on component mount
   useEffect(() => {
     fetchAllProducts();
   }, [fetchAllProducts]);
+
+  // Fonction pour gérer la mise à jour du prix
+  const handlePriceChange = (productId) => {
+    if (newPrice && !isNaN(parseFloat(newPrice))) {
+      updateProductPrice(productId, parseFloat(newPrice));
+      setEditingPrice(null);
+      setNewPrice("");
+    } else {
+      alert("Veuillez entrer un prix valide");
+    }
+  };
 
   return (
     <motion.div
@@ -72,7 +87,26 @@ const ProductsList = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-300">{product.price.toFixed(2)} €</div>
+                  <div className="text-sm text-gray-300">
+                    {editingPrice === product._id ? (
+                      <div className="flex items-center">
+                        <input
+                          type="number"
+                          value={newPrice}
+                          onChange={(e) => setNewPrice(e.target.value)}
+                          className="bg-gray-700 text-gray-300 p-2 rounded"
+                        />
+                        <button
+                          onClick={() => handlePriceChange(product._id)}
+                          className="ml-2 text-green-500"
+                        >
+                          ✔️
+                        </button>
+                      </div>
+                    ) : (
+                      `${product.price.toFixed(2)} €`
+                    )}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-300">{product.category}</div>
@@ -96,6 +130,12 @@ const ProductsList = () => {
                   >
                     <Trash className="h-5 w-5" />
                   </button>
+                  <button
+                    onClick={() => setEditingPrice(product._id)}
+                    className="text-yellow-400 hover:text-yellow-300 ml-2"
+                  >
+                    <Edit className="h-5 w-5" />
+                  </button>
                 </td>
               </tr>
             ))
@@ -105,7 +145,7 @@ const ProductsList = () => {
                 colSpan="5"
                 className="px-6 py-4 text-center text-sm text-gray-300"
               >
-                No products found.
+                Pas de produits
               </td>
             </tr>
           )}

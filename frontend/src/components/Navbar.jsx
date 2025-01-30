@@ -17,7 +17,7 @@ const Navbar = () => {
           to="/"
           className="text-2xl font-bold text-emerald-400 flex items-center space-x-2"
         >
-          E-Commerce
+          DIGIT-SELL
         </Link>
 
         {/* Navigation */}

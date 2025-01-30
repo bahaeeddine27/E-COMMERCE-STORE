@@ -7,7 +7,7 @@ export const createCheckoutSession = async (req, res) => {
         const {products, couponCode} = req.body;
 
         if (!Array.isArray(products) || products.length === 0) {
-            return res.status(400).json({ error: "Invalid or empty products array" });
+            return res.status(400).json({ error: "Tableau de produits invalide ou vide" });
         }
         let totalAmount = 0;
 
@@ -22,8 +22,9 @@ export const createCheckoutSession = async (req, res) => {
                         images: [product.image],
                     },
                     unit_amount: amount,
-                }
-            }
+                },
+                quantity: product.quantity || 1,
+            };
         });
 
         let coupon = null;
@@ -97,13 +98,13 @@ export const checkoutSuccess = async (req, res) => {
 
             res.status(200).json({
                 success: true,
-                message: "Payment successful",
+                message: "Paiement réussi",
                 orderId: newOrder._id,
             });
         }
     } catch (error) {
-        console.error("Error processing successful payment:", error);
-        res.status(500).json({ error: "Error processing successful checkout", error: error.message });
+        console.error("Erreur lors du paiement réussi :", error);
+        res.status(500).json({ error: "Erreur lors du paiement réussi", error: error.message });
     }
 };
 
