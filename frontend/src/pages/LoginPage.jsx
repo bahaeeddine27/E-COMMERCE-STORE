@@ -50,6 +50,7 @@ const LoginPage = () => {
                                 <input
                                     id="email"
                                     type="email"
+                                    data-testid="email"
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -73,6 +74,7 @@ const LoginPage = () => {
                                 <input
                                     id="password"
                                     type="password"
+                                    data-testid="password"
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, UserPlus, LogIn, LogOut, Lock } from 'lucide-react';
 import { useUserStore } from '../stores/useUserStore';
 import { useCartStore } from '../stores/useCartStore';
-
+import Logo from '../../public/cahier-de-texte.svg';
 const Navbar = () => {
   const {user, logout} = useUserStore();
   const admin = user?.role === 'admin';
@@ -17,7 +17,7 @@ const Navbar = () => {
           to="/"
           className="text-2xl font-bold text-emerald-400 flex items-center space-x-2"
         >
-          DIGIT-SELL
+          <span>DIGIT-SELL</span>
         </Link>
 
         {/* Navigation */}
@@ -37,6 +37,7 @@ const Navbar = () => {
               className="relative group text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out"
             >
               <ShoppingCart
+                data-testid="cart-counter"
                 className="inline-block mr-1 group-hover:text-emerald-400"
                 size={20}
               />

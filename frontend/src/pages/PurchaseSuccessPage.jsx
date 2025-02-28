@@ -64,10 +64,6 @@ const PurchaseSuccessPage = () => {
                     Vérifiez votre courrier électronique pour les détails de la commande et les mises à jour.
 					</p>
 					<div className='bg-gray-700 rounded-lg p-4 mb-6'>
-						<div className='flex items-center justify-between mb-2'>
-							<span className='text-sm text-gray-400'>Numéro de commande</span>
-							<span className='text-sm font-semibold text-emerald-400'>#12345</span>
-						</div>
 						<div className='flex items-center justify-between'>
 							<span className='text-sm text-gray-400'>Livraison estimée</span>
 							<span className='text-sm font-semibold text-emerald-400'>3-5 jours ouvrables</span>

@@ -19,6 +19,7 @@ import Footer from './components/Footer.jsx';
 import MentionsLegalesPage from './pages/MentionsLegalesPage.jsx';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage.jsx';
 import TermsOfSalePage from './pages/TermsOfSalePage.jsx';
+import SelectedProductPage from './pages/SelectedProductPage.jsx';
 
 function App() {
   const {user, checkAuth, checkingAuth} = useUserStore();
@@ -50,6 +51,7 @@ function App() {
         <Route path='/login' element={!user ? <LoginPage /> : <Navigate to='/' />} />
         <Route path='/secret-dashboard' element={user?.role === 'admin' ? <AdminPage /> : <Navigate to='/login' />} />
         <Route path='/category/:category' element={<CategoryPage />} />
+        <Route path='/product/:productId' element={<SelectedProductPage />} />
         <Route path='/cart' element={user ? <CartPage /> : <Navigate to='/login' />} />
         <Route path='/purchase-success' element={user ? <PurchaseSuccessPage /> : <Navigate to='/login' />} />
         <Route path='/purchase-cancel' element={user ? <PurchaseCancelPage /> : <Navigate to='/login' />} />

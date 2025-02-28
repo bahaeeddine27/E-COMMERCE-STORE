@@ -2,14 +2,16 @@ import { create } from "zustand";
 import axios from "../lib/axios.js";
 import { toast } from "react-toastify";
 
+// Création du store Zustand pour la gestion de l'utilisateur
 export const useUserStore = create((set) => ({
   user: JSON.parse(localStorage.getItem("user")) || null, // Récupérer l'utilisateur depuis localStorage
   loading: false,
   checkingAuth: false,
 
+  // Fonction d'inscription d'un utilisateur
   signup: async ({ name, email, password, confirmPassword }) => {
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error("Les mots de passe ne correspondent pas");
       return;
     }
     set({ loading: true });
@@ -18,13 +20,14 @@ export const useUserStore = create((set) => ({
       const user = res.data;
       set({ user, loading: false });
       localStorage.setItem("user", JSON.stringify(user)); // Sauvegarder l'utilisateur
-      toast.success("Account created successfully!");
+      toast.success("Compte créé avec succès !");
     } catch (error) {
       set({ loading: false });
-      toast.error(error?.response?.data?.message || "An error occurred during signup");
+      toast.error(error?.response?.data?.message || "Une erreur s'est produite lors de l'inscription");
     }
   },
 
+  // Fonction de connexion de l'utilisateur
   login: async (email, password) => {
     set({ loading: true });
     try {
@@ -32,13 +35,14 @@ export const useUserStore = create((set) => ({
       const user = res.data;
       set({ user, loading: false });
       localStorage.setItem("user", JSON.stringify(user)); // Sauvegarder l'utilisateur
-      toast.success("Login successful!");
+      toast.success("Connexion réussie !");
     } catch (error) {
       set({ loading: false });
-      toast.error(error?.response?.data?.message || "An error occurred during login");
+      toast.error(error?.response?.data?.message || "Une erreur s'est produite lors de la connexion");
     }
   },
 
+  // Vérifier l'authentification de l'utilisateur
   checkAuth: async () => {
     set({ checkingAuth: true });
     try {
@@ -52,16 +56,19 @@ export const useUserStore = create((set) => ({
     }
   },
 
+  // Fonction de déconnexion de l'utilisateur
   logout: async () => {
     try {
       await axios.post("/auth/logout");
       set({ user: null });
       localStorage.removeItem("user"); // Supprimer l'utilisateur du localStorage
-      toast.success("Logged out successfully!");
+      toast.success("Déconnexion réussie !");
     } catch (error) {
-      toast.error("An error occurred during logout");
+      toast.error("Une erreur s'est produite lors de la déconnexion");
     }
   },
+
+  // Rafraîchir le token d'authentification
   refreshToken: async () => {
 		// Prevent multiple simultaneous refresh attempts
 		if (get().checkingAuth) return;
@@ -78,9 +85,10 @@ export const useUserStore = create((set) => ({
 	},
 }));
 
-// Axios interceptor for token refresh
+// Axios interceptor pour le rafraîchissement du token
 let refreshPromise = null;
 
+// Intercepteur des réponses d'axios pour gérer les erreurs 401
 axios.interceptors.response.use(
 	(response) => response,
 	async (error) => {

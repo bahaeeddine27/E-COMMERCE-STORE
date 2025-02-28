@@ -2,18 +2,23 @@ import { create } from "zustand";
 import toast from "react-hot-toast";
 import axios from "../lib/axios";
 
+// Création du store Zustand pour gérer les produits
 export const useProductStore = create((set) => ({
+  // Déclaration des états du store
   products: [],
+  selectedProduct: null,
   loading: false,
 
+  // Setter pour les produits (met à jour l'état des produits)
   setProducts: (products) => set({ products }),
 
+  // Création d'un produit
   createProduct: async (productData) => {
     set({ loading: true });
     try {
-      const res = await axios.post("/products", productData);
+      const res = await axios.post("/products", productData); // Appel API pour créer un produit
       set((prevState) => ({
-        products: [...prevState.products, res.data],
+        products: [...prevState.products, res.data], // Ajoute le produit à la liste des produits
         loading: false,
       }));
       toast.success("Produit créé avec succès !");
@@ -25,6 +30,7 @@ export const useProductStore = create((set) => ({
     }
   },
 
+  // Récupérer tous les produits
   fetchAllProducts: async () => {
     set({ loading: true });
     try {
@@ -35,7 +41,18 @@ export const useProductStore = create((set) => ({
       set({ loading: false });
     }
   },
-
+  // Récupérer un produit par son ID et le définir comme selectedProduct
+  fetchProductById: async (id) => {
+    set({ loading: true });
+    try {
+      const response = await axios.get(`/products/${id}`);
+      set({ selectedProduct: response.data, loading: false });
+    } catch (error) {
+      toast.error(error.response?.data?.error || "Produit introuvable.");
+      set({ loading: false });
+    }
+  },
+   // Récupérer les produits par catégorie
   fetchProductsByCategory: async (category) => {
     set({ loading: true });
     console.log(`Fetching products for category: ${category}`);
@@ -52,6 +69,8 @@ export const useProductStore = create((set) => ({
       set({ loading: false });
     }
   },
+
+  // Suppression d'un produit
   deleteProduct: async (id) => {
     set({ loading: true });
     try {
@@ -67,6 +86,7 @@ export const useProductStore = create((set) => ({
     }
   },
 
+  // Mise à jour du prix d'un produit
   updateProductPrice: async (id, newPrice) => {
     set({ loading: true });
     try {
@@ -84,6 +104,7 @@ export const useProductStore = create((set) => ({
     }
   },
 
+  // Mise à jour de l'état 'Featured' d'un produit
   toggleFeaturedProduct: async (id) => {
     set({ loading: true });
     try {
@@ -102,6 +123,8 @@ export const useProductStore = create((set) => ({
       set({ loading: false });
     }
   },
+
+  // Récupérer les produits en vedette
   fetchFeaturedProducts: async () => {
     set({ loading: true });
     try {
