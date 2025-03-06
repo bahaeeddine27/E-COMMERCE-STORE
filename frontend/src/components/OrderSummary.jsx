@@ -6,7 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "../lib/axios";
 
 const stripePromise = loadStripe(
-  "pk_test_51QmF9qRm0yx8MmkuGRoLi2wdkrwbN9MgygTvrp03PqSCsEA6iGmBbTrLIblRJoGTkaBo5LbeYYwg9F8bYX9h2vnL000eWVe3uR"
+  "pk_test_51QmF9qRm0yx8MmkuGRoLi2wdkrwbN9MgygTvrp03PqSCsEA6iGmBbTrLIblRJoGTkaBo5LbeYYwg9F8bYX9h2vnL000eWVe3uR",
 );
 
 const OrderSummary = () => {
@@ -24,29 +24,32 @@ const OrderSummary = () => {
     console.log("Coupon applied:", coupon); // Vérifie si un coupon est appliqué
 
     try {
-        const res = await axios.post("/payments/create-checkout-session", {
-            products: cart,
-            couponCode: coupon ? coupon.code : null,
+      const res = await axios.post("/payments/create-checkout-session", {
+        products: cart,
+        couponCode: coupon ? coupon.code : null,
+      });
+
+      console.log("🔄 Response from backend:", res.data); // Vérifie la réponse du backend
+
+      const session = res.data;
+      if (session.id) {
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id,
         });
 
-        console.log("🔄 Response from backend:", res.data); // Vérifie la réponse du backend
-
-        const session = res.data;
-        if (session.id) {
-            const result = await stripe.redirectToCheckout({
-                sessionId: session.id,
-            });
-
-            if (result.error) {
-                console.error("Error during Stripe checkout:", result.error);
-            }
-        } else {
-            console.error("Session ID not received");
+        if (result.error) {
+          console.error("Error during Stripe checkout:", result.error);
         }
+      } else {
+        console.error("Session ID not received");
+      }
     } catch (error) {
-        console.error("🚨 Checkout error:", error.response?.data || error.message);
+      console.error(
+        "🚨 Checkout error:",
+        error.response?.data || error.message,
+      );
     }
-};
+  };
   return (
     <motion.div
       className="space-y-4 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-sm sm:p-6"
@@ -59,27 +62,39 @@ const OrderSummary = () => {
       <div className="space-y-4">
         <div className="space-y-2">
           <dl className="flex items-center justify-between gap-4">
-            <dt className="text-base font-normal text-gray-300">Prix original</dt>
-            <dd className="text-base font-medium text-white">{formattedSubtotal} €</dd>
+            <dt className="text-base font-normal text-gray-300">
+              Prix original
+            </dt>
+            <dd className="text-base font-medium text-white">
+              {formattedSubtotal} €
+            </dd>
           </dl>
 
           {savings > 0 && (
             <dl className="flex items-center justify-between gap-4">
               <dt className="text-base font-normal text-gray-300">Économies</dt>
-              <dd className="text-base font-medium text-emerald-400">{formattedSavings}-€</dd>
+              <dd className="text-base font-medium text-emerald-400">
+                {formattedSavings}-€
+              </dd>
             </dl>
           )}
 
           {coupon && isCouponApplied && (
             <dl className="flex items-center justify-between gap-4">
-              <dt className="text-base font-normal text-gray-300">Coupon ({coupon.code})</dt>
-              <dd className="text-base font-medium text-emerald-400">-{coupon.discountPercentage}%</dd>
+              <dt className="text-base font-normal text-gray-300">
+                Coupon ({coupon.code})
+              </dt>
+              <dd className="text-base font-medium text-emerald-400">
+                -{coupon.discountPercentage}%
+              </dd>
             </dl>
           )}
 
           <dl className="flex items-center justify-between gap-4 border-t border-gray-600 pt-2">
             <dt className="text-base font-bold text-white">Total</dt>
-            <dd className="text-base font-bold text-emerald-400">{formattedTotal} €</dd>
+            <dd className="text-base font-bold text-emerald-400">
+              {formattedTotal} €
+            </dd>
           </dl>
         </div>
 

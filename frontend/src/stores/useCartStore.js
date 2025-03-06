@@ -28,10 +28,12 @@ export const useCartStore = create((set, get) => ({
       get().calculateTotals(); // Recalcul des totaux avec le coupon
       toast.success("Coupon appliqué avec succès");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Échec de l'application du coupon");
+      toast.error(
+        error.response?.data?.message || "Échec de l'application du coupon",
+      );
     }
   },
- 
+
   // Suppression d'un coupon appliqué
   removeCoupon: () => {
     set({ coupon: null, isCouponApplied: false }); // Réinitialise le coupon
@@ -64,10 +66,14 @@ export const useCartStore = create((set, get) => ({
 
       // Mise à jour du panier localement
       set((prevState) => {
-        const existingItem = prevState.cart.find((item) => item._id === product._id);
+        const existingItem = prevState.cart.find(
+          (item) => item._id === product._id,
+        );
         const newCart = existingItem
           ? prevState.cart.map((item) =>
-              item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+              item._id === product._id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item,
             )
           : [...prevState.cart, { ...product, quantity: 1 }];
         return { cart: newCart };
@@ -81,7 +87,9 @@ export const useCartStore = create((set, get) => ({
   // Suppression d'un produit du panier
   removeFromCart: async (productId) => {
     await axios.delete(`/cart`, { data: { productId } }); // Suppression via l'API
-    set((prevState) => ({ cart: prevState.cart.filter((item) => item._id !== productId) }));
+    set((prevState) => ({
+      cart: prevState.cart.filter((item) => item._id !== productId),
+    }));
     get().calculateTotals(); // Recalcul des totaux
   },
 
@@ -94,7 +102,9 @@ export const useCartStore = create((set, get) => ({
 
     await axios.put(`/cart/${productId}`, { quantity }); // Mise à jour via l'API
     set((prevState) => ({
-      cart: prevState.cart.map((item) => (item._id === productId ? { ...item, quantity } : item)),
+      cart: prevState.cart.map((item) =>
+        item._id === productId ? { ...item, quantity } : item,
+      ),
     }));
     get().calculateTotals(); // Recalcul des totaux
   },
@@ -102,7 +112,10 @@ export const useCartStore = create((set, get) => ({
   // Calcul des totaux (sous-total et total avec remise)
   calculateTotals: () => {
     const { cart, coupon } = get(); // Récupère le panier et le coupon depuis le store
-    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0); // Calcule le sous-total
+    const subtotal = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    ); // Calcule le sous-total
     let total = subtotal;
 
     if (coupon) {
@@ -112,5 +125,4 @@ export const useCartStore = create((set, get) => ({
 
     set({ subtotal, total }); // Mise à jour des totaux dans le store
   },
-    
 }));

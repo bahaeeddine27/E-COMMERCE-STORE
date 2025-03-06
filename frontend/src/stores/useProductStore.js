@@ -37,7 +37,9 @@ export const useProductStore = create((set) => ({
       const response = await axios.get("/products");
       set({ products: response.data.products, loading: false });
     } catch (error) {
-      toast.error(error.response?.data?.error || "Impossible de récupérer les produits.");
+      toast.error(
+        error.response?.data?.error || "Impossible de récupérer les produits.",
+      );
       set({ loading: false });
     }
   },
@@ -52,7 +54,7 @@ export const useProductStore = create((set) => ({
       set({ loading: false });
     }
   },
-   // Récupérer les produits par catégorie
+  // Récupérer les produits par catégorie
   fetchProductsByCategory: async (category) => {
     set({ loading: true });
     console.log(`Fetching products for category: ${category}`);
@@ -61,10 +63,13 @@ export const useProductStore = create((set) => ({
       console.log("API Response:", response.data);
       set({ products: response.data.products, loading: false });
     } catch (error) {
-      console.error("Error fetching products:", error.response?.data || error.message);
+      console.error(
+        "Error fetching products:",
+        error.response?.data || error.message,
+      );
       toast.error(
         error.response?.data?.error ||
-        "Impossible de récupérer les produits par catégorie."
+          "Impossible de récupérer les produits par catégorie.",
       );
       set({ loading: false });
     }
@@ -81,7 +86,9 @@ export const useProductStore = create((set) => ({
       }));
       toast.success("Produit supprimé avec succès !");
     } catch (error) {
-      toast.error(error.response?.data?.error || "Échec de la suppression du produit.");
+      toast.error(
+        error.response?.data?.error || "Échec de la suppression du produit.",
+      );
       set({ loading: false });
     }
   },
@@ -90,16 +97,22 @@ export const useProductStore = create((set) => ({
   updateProductPrice: async (id, newPrice) => {
     set({ loading: true });
     try {
-      const response = await axios.patch(`/products/${id}/price`, { price: newPrice });
+      const response = await axios.patch(`/products/${id}/price`, {
+        price: newPrice,
+      });
       set((prevState) => ({
         products: prevState.products.map((product) =>
-          product._id === id ? { ...product, price: response.data.price } : product
+          product._id === id
+            ? { ...product, price: response.data.price }
+            : product,
         ),
         loading: false,
       }));
       toast.success("Prix mis à jour avec succès !");
     } catch (error) {
-      toast.error(error.response?.data?.error || "Échec de la mise à jour du prix.");
+      toast.error(
+        error.response?.data?.error || "Échec de la mise à jour du prix.",
+      );
       set({ loading: false });
     }
   },
@@ -113,13 +126,15 @@ export const useProductStore = create((set) => ({
         products: prevState.products.map((product) =>
           product._id === id
             ? { ...product, isFeatured: response.data.isFeatured }
-            : product
+            : product,
         ),
         loading: false,
       }));
       toast.success("Produit mis à jour avec succès !");
     } catch (error) {
-      toast.error(error.response?.data?.error || "Échec de la mise à jour du produit.");
+      toast.error(
+        error.response?.data?.error || "Échec de la mise à jour du produit.",
+      );
       set({ loading: false });
     }
   },
@@ -131,7 +146,7 @@ export const useProductStore = create((set) => ({
       const response = await axios.get("/products/featured");
       set({ products: response.data, loading: false });
     } catch (error) {
-      set({ error: 'Failed to fetch products', loading: false });
+      set({ error: "Failed to fetch products", loading: false });
       console.log("Error fetching featured products:", error);
     }
   },

@@ -1,88 +1,95 @@
-import { Link } from 'react-router-dom';
-import { ShoppingCart, UserPlus, LogIn, LogOut, Lock } from 'lucide-react';
-import { useUserStore } from '../stores/useUserStore';
-import { useCartStore } from '../stores/useCartStore';
-import Logo from '../../public/cahier-de-texte.svg';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ShoppingCart, UserPlus, LogIn, LogOut, X } from "lucide-react";
+import { useUserStore } from "../stores/useUserStore";
+import { useCartStore } from "../stores/useCartStore";
+
 const Navbar = () => {
-  const {user, logout} = useUserStore();
-  const admin = user?.role === 'admin';
+  const { user, logout } = useUserStore();
+  const admin = user?.role === "admin";
   const { cart } = useCartStore();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 backdrop-blur-md shadow-lg z-40 transition-all duration-300 border-b border-emerald-800">
-      <div className="container mx-auto px-4 py-3">
-        <div className='flex justify-between items-center'>
+      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <Link
-          to="/"
-          className="text-2xl font-bold text-emerald-400 flex items-center space-x-2"
-        >
-          <span>DIGIT-SELL</span>
+        <Link to="/" className="text-2xl font-bold text-emerald-400">
+          DIGIT-SELL
         </Link>
 
+        {/* Hamburger Icon */}
+        <button
+          className="md:hidden w-10 h-10 flex items-center justify-center bg-emerald-600 rounded-lg"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? (
+            <X size={28} className="text-white" />
+          ) : (
+            <div className="flex flex-col space-y-1">
+              <span className="block w-6 h-1 bg-white"></span>
+              <span className="block w-6 h-1 bg-white"></span>
+              <span className="block w-6 h-1 bg-white"></span>
+            </div>
+          )}
+        </button>
+
         {/* Navigation */}
-        <nav className="flex items-center gap-6">
-          {/* Lien vers la page d'accueil */}
-          <Link
-            to="/"
-            className="text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out"
-          >
+        <nav
+          className={`absolute top-16 right-0 w-3/4 bg-gray-900 p-5 flex flex-col gap-4 md:relative md:top-auto md:w-auto md:bg-transparent md:flex-row md:items-center md:gap-6 ${menuOpen ? "block" : "hidden md:flex"}`}
+        >
+          <Link to="/" className="text-gray-300 hover:text-emerald-400">
             Accueil
           </Link>
 
-          {/* Lien vers le panier */}
           {user && (
             <Link
               to="/cart"
-              className="relative group text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out"
+              className="relative text-gray-300 hover:text-emerald-400"
             >
-              <ShoppingCart
-                data-testid="cart-counter"
-                className="inline-block mr-1 group-hover:text-emerald-400"
-                size={20}
-              />
-              <span className="hidden sm:inline">Panier</span>
+              <ShoppingCart size={20} />
               {cart.length > 0 && (
-              <span 
-              className="absolute -top-2 -left-2 bg-emerald-500 text-white rounded-full px-2 py-0.5 text-xs group-hover:bg-emerald-400 transition duration-300 ease-in-out">
-                {cart.length}
-              </span>
-            )}
+                <span className="absolute -top-2 -left-2 bg-emerald-500 text-white rounded-full px-2 py-0.5 text-xs">
+                  {cart.length}
+                </span>
+              )}
             </Link>
           )}
 
-          {/* Lien pour l'administrateur */}
           {admin && (
-            <Link className="bg-emerald-700 hover:text-emerald-600 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out" to={"/secret-dashboard"}
+            <Link
+              to="/secret-dashboard"
+              className="bg-emerald-700 text-white px-3 py-1 rounded-md hover:text-emerald-600"
             >
-              <Lock className="inline-block mr-1" size={18} />
-              <span className='hidden sm:inline'>Tableau de Bord</span>
+              Tableau de Bord
             </Link>
           )}
 
-          {/* Connexion/Déconnexion */}
           {user ? (
-            <button className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center transition duration-300 ease-in-out" onClick={logout}>
+            <button
+              className="bg-gray-700 text-white py-2 px-4 rounded-md flex items-center hover:bg-gray-600"
+              onClick={logout}
+            >
               <LogOut size={18} />
-              <span className='hidden sm:inline ml-2'>Se déconnecter</span>
+              <span className="ml-2">Se déconnecter</span>
             </button>
           ) : (
             <>
-              <Link to={"/signup"} className='bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-md flex items-center transition duration-300 ease-in-out'>
-                <UserPlus className="mr-2" size={18} />
-                S'enregistrer
+              <Link
+                to="/signup"
+                className="bg-emerald-600 text-white py-2 px-4 rounded-md flex items-center hover:bg-emerald-700"
+              >
+                <UserPlus size={18} className="mr-2" /> S&apos;enregistrer
               </Link>
               <Link
                 to="/login"
-                className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center transition duration-300 ease-in-out"
+                className="bg-gray-700 text-white py-2 px-4 rounded-md flex items-center hover:bg-gray-600"
               >
-                <LogIn className="mr-1" size={20} />
-                Connexion
+                <LogIn size={20} className="mr-1" /> Connexion
               </Link>
             </>
           )}
         </nav>
-        </div>
       </div>
     </header>
   );

@@ -1,0 +1,53 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Exécute le workflow lors de chaque push sur la branche 'main'
+  pull_request:
+    branches:
+      - main  # Exécute le workflow lors de chaque pull request sur la branche 'main'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1: Checkout du code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Étape 2: Installer Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Définir la version Node.js
+
+      # Étape 3: Installer les dépendances
+      - name: Install dependencies
+        run: npm install
+
+      # Étape 4: Exécuter les tests avec Jest et Supertest
+      - name: Run tests
+        run: npm test  # Vous pouvez configurer vos tests avec Jest ou d'autres outils
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test  # Le déploiement ne se fait que si les tests réussissent
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy to server
+        run: |
+          # Exemple d'une commande de déploiement automatique (adaptée à votre setup)
+          ssh user@server "cd /path/to/project && git pull && npm install && pm2 restart app"

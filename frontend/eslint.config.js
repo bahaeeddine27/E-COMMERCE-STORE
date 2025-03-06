@@ -1,18 +1,18 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import js from '@eslint/js';
+import globals from 'globals';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import prettier from 'eslint-plugin-prettier';
 
 export default [
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'node_modules', 'cypress/e2e'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
       parserOptions: {
-        ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
       },
@@ -22,6 +22,7 @@ export default [
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      prettier, // Ajout du plugin Prettier
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -34,6 +35,7 @@ export default [
         { allowConstantExport: true },
       ],
       'react/prop-types': 'off',
+      'prettier/prettier': 'error', // Active les erreurs sur le formatage non conforme
     },
   },
-]
+];

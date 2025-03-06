@@ -4,12 +4,18 @@ import { useEffect, useState } from "react";
 import { useProductStore } from "../stores/useProductStore.js";
 
 const ProductsList = () => {
-  const { deleteProduct, toggleFeaturedProduct, fetchAllProducts, products, updateProductPrice } = useProductStore();
-  
+  const {
+    deleteProduct,
+    toggleFeaturedProduct,
+    fetchAllProducts,
+    products,
+    updateProductPrice,
+  } = useProductStore();
+
   // State pour gérer la modification du prix
   const [editingPrice, setEditingPrice] = useState(null);
   const [newPrice, setNewPrice] = useState("");
-  
+
   // Fetch products on component mount
   useEffect(() => {
     fetchAllProducts();
@@ -82,7 +88,9 @@ const ProductsList = () => {
                       />
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-white">{product.name}</div>
+                      <div className="text-sm font-medium text-white">
+                        {product.name}
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -109,7 +117,9 @@ const ProductsList = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-300">{product.category}</div>
+                  <div className="text-sm text-gray-300">
+                    {product.category}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button

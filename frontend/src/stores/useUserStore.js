@@ -21,9 +21,9 @@ export const useUserStore = create((set) => ({
       set({ user, loading: false });
       localStorage.setItem("user", JSON.stringify(user)); // Sauvegarder l'utilisateur
       toast.success("Compte créé avec succès !");
-    } catch (error) {
+    } catch {
       set({ loading: false });
-      toast.error(error?.response?.data?.message || "Une erreur s'est produite lors de l'inscription");
+      toast.error("Une erreur s'est produite lors de l'inscription");
     }
   },
 
@@ -36,9 +36,9 @@ export const useUserStore = create((set) => ({
       set({ user, loading: false });
       localStorage.setItem("user", JSON.stringify(user)); // Sauvegarder l'utilisateur
       toast.success("Connexion réussie !");
-    } catch (error) {
+    } catch {
       set({ loading: false });
-      toast.error(error?.response?.data?.message || "Une erreur s'est produite lors de la connexion");
+      toast.error("Une erreur s'est produite lors de la connexion");
     }
   },
 
@@ -50,7 +50,7 @@ export const useUserStore = create((set) => ({
       const user = response.data;
       set({ user, checkingAuth: false });
       localStorage.setItem("user", JSON.stringify(user)); // Sauvegarder l'utilisateur
-    } catch (error) {
+    } catch {
       set({ checkingAuth: false, user: null });
       localStorage.removeItem("user"); // Nettoyer le localStorage si l'utilisateur n'est pas authentifié
     }
@@ -63,26 +63,26 @@ export const useUserStore = create((set) => ({
       set({ user: null });
       localStorage.removeItem("user"); // Supprimer l'utilisateur du localStorage
       toast.success("Déconnexion réussie !");
-    } catch (error) {
+    } catch {
       toast.error("Une erreur s'est produite lors de la déconnexion");
     }
   },
 
   // Rafraîchir le token d'authentification
   refreshToken: async () => {
-		// Prevent multiple simultaneous refresh attempts
-		if (get().checkingAuth) return;
+    // Prevent multiple simultaneous refresh attempts
+    if (useUserStore.getState().checkingAuth) return;
 
-		set({ checkingAuth: true });
-		try {
-			const response = await axios.post("/auth/refresh-token");
-			set({ checkingAuth: false });
-			return response.data;
-		} catch (error) {
-			set({ user: null, checkingAuth: false });
-			throw error;
-		}
-	},
+    set({ checkingAuth: true });
+    try {
+      const response = await axios.post("/auth/refresh-token");
+      set({ checkingAuth: false });
+      return response.data;
+    } catch {
+      set({ user: null, checkingAuth: false });
+      throw new Error("Erreur lors du rafraîchissement du token");
+    }
+  },
 }));
 
 // Axios interceptor pour le rafraîchissement du token
@@ -90,31 +90,31 @@ let refreshPromise = null;
 
 // Intercepteur des réponses d'axios pour gérer les erreurs 401
 axios.interceptors.response.use(
-	(response) => response,
-	async (error) => {
-		const originalRequest = error.config;
-		if (error.response?.status === 401 && !originalRequest._retry) {
-			originalRequest._retry = true;
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
 
-			try {
-				// If a refresh is already in progress, wait for it to complete
-				if (refreshPromise) {
-					await refreshPromise;
-					return axios(originalRequest);
-				}
+      try {
+        // If a refresh is already in progress, wait for it to complete
+        if (refreshPromise) {
+          await refreshPromise;
+          return axios(originalRequest);
+        }
 
-				// Start a new refresh process
-				refreshPromise = useUserStore.getState().refreshToken();
-				await refreshPromise;
-				refreshPromise = null;
+        // Start a new refresh process
+        refreshPromise = useUserStore.getState().refreshToken();
+        await refreshPromise;
+        refreshPromise = null;
 
-				return axios(originalRequest);
-			} catch (refreshError) {
-				// If refresh fails, redirect to login or handle as needed
-				useUserStore.getState().logout();
-				return Promise.reject(refreshError);
-			}
-		}
-		return Promise.reject(error);
-	}
+        return axios(originalRequest);
+      } catch (refreshError) {
+        // If refresh fails, redirect to login or handle as needed
+        useUserStore.getState().logout();
+        return Promise.reject(refreshError);
+      }
+    }
+    return Promise.reject(error);
+  },
 );
