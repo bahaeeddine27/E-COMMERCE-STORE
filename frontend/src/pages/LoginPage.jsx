@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { LogIn, Mail, Lock, Loader, ArrowRight } from "lucide-react";
-import { useUserStore } from "../stores/useUserStore.js";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { LogIn, Mail, Lock, Loader, ArrowRight } from 'lucide-react';
+import { useUserStore } from '../stores/useUserStore.js';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const { login, loading } = useUserStore();
   const handleSubmit = (e) => {
@@ -37,10 +37,7 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Input */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-300"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300">
                 Adresse mail
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
@@ -61,10 +58,7 @@ const LoginPage = () => {
             </div>
             {/* Password Input */}
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-300"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300">
                 Mot de passe
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
@@ -92,10 +86,7 @@ const LoginPage = () => {
               >
                 {loading ? (
                   <>
-                    <Loader
-                      className="mr-2 h-5 w-5 animate-spin"
-                      aria-hidden="true"
-                    />
+                    <Loader className="mr-2 h-5 w-5 animate-spin" aria-hidden="true" />
                     Chargement...
                   </>
                 ) : (
@@ -108,10 +99,9 @@ const LoginPage = () => {
             </div>
             {/* Redirect to Sign Up */}
             <div className="text-center text-sm text-gray-400">
-              Vous êtes pas encore inscrit ?{" "}
+              Vous êtes pas encore inscrit ?{' '}
               <Link to="/signup" className="text-emerald-400 hover:underline">
-                S&apos;enregistrer{" "}
-                <ArrowRight className="inline-block h-4 w-4" />
+                S&apos;enregistrer <ArrowRight className="inline-block h-4 w-4" />
               </Link>
             </div>
           </form>

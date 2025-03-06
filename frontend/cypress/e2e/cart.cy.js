@@ -16,7 +16,7 @@ describe('Gestion du panier et des coupons', () => {
     cy.document().then((doc) => {
       const style = doc.getElementById('masquer-navbar');
       if (style) {
-        style.remove();  // Supprime le style pour réafficher la navbar
+        style.remove(); // Supprime le style pour réafficher la navbar
       }
     });
   };
@@ -26,7 +26,7 @@ describe('Gestion du panier et des coupons', () => {
     cy.wait(10000);
     masquerNavbar(); // Masquer la navbar au début
     cy.get('.Toastify__toast-container').should('not.exist');
-    cy.screenshot('page-accueil'); 
+    cy.screenshot('page-accueil');
     cy.visit('http://localhost:5173/login');
     cy.wait(10000);
     cy.screenshot('page-connexion');
@@ -64,15 +64,15 @@ describe('Gestion du panier et des coupons', () => {
     cy.wait(5000);
     cy.screenshot('panier');
 
-    cy.contains('Learn English the hard way').should('be.visible');    
+    cy.contains('Learn English the hard way').should('be.visible');
     cy.contains('Procéder au checkout').click();
     cy.screenshot('proceed-checkout');
     cy.wait(5000);
-    masquerNavbar();  // Masquer la navbar
-    cy.screenshot('proceed-checkout');  
+    masquerNavbar(); // Masquer la navbar
+    cy.screenshot('proceed-checkout');
 
     // Vérifie si la redirection vers Stripe a eu lieu
     cy.url().should('include', 'checkout.stripe.com');
-    cy.screenshot('stripe-checkout');  
+    cy.screenshot('stripe-checkout');
   });
 });

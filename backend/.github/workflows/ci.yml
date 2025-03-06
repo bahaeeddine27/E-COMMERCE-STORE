@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Exécute le workflow lors de chaque push sur la branche 'main'
+      - master
   pull_request:
     branches:
-      - master  # Exécute le workflow lors de chaque pull request sur la branche 'main'
+      - master
 
 jobs:
   test:
@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  # Définir la version Node.js
+          node-version: '14' # Définir la version Node.js
 
       # Étape 3: Installer les dépendances
       - name: Install dependencies
@@ -29,11 +29,11 @@ jobs:
 
       # Étape 4: Exécuter les tests avec Jest et Supertest
       - name: Run tests
-        run: npm test  # Vous pouvez configurer vos tests avec Jest ou d'autres outils
+        run: npm test # Vous pouvez configurer vos tests avec Jest ou d'autres outils
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test  # Le déploiement ne se fait que si les tests réussissent
+    needs: test # Le déploiement ne se fait que si les tests réussissent
 
     steps:
       - name: Checkout code

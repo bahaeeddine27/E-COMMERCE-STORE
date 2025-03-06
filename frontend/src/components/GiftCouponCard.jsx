@@ -1,11 +1,10 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useCartStore } from "../stores/useCartStore";
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { useCartStore } from '../stores/useCartStore';
 
 const GiftCouponCard = () => {
-  const [userInputCode, setUserInputCode] = useState("");
-  const { coupon, isCouponApplied, applyCoupon, getMyCoupon, removeCoupon } =
-    useCartStore();
+  const [userInputCode, setUserInputCode] = useState('');
+  const { coupon, isCouponApplied, applyCoupon, getMyCoupon, removeCoupon } = useCartStore();
 
   useEffect(() => {
     getMyCoupon();
@@ -22,7 +21,7 @@ const GiftCouponCard = () => {
 
   const handleRemoveCoupon = async () => {
     await removeCoupon();
-    setUserInputCode("");
+    setUserInputCode('');
   };
 
   return (
@@ -34,10 +33,7 @@ const GiftCouponCard = () => {
     >
       <div className="space-y-4">
         <div>
-          <label
-            htmlFor="voucher"
-            className="mb-2 block text-sm font-medium text-gray-300"
-          >
+          <label htmlFor="voucher" className="mb-2 block text-sm font-medium text-gray-300">
             Avez-vous un bon ou une carte cadeau ?
           </label>
           <input
@@ -87,9 +83,7 @@ const GiftCouponCard = () => {
 
       {coupon && (
         <div className="mt-4">
-          <h3 className="text-lg font-medium text-gray-300">
-            Votre coupon disponible :
-          </h3>
+          <h3 className="text-lg font-medium text-gray-300">Votre coupon disponible :</h3>
           <p className="mt-2 text-sm text-gray-400">
             {coupon.code} - {coupon.discountPercentage}% off
           </p>

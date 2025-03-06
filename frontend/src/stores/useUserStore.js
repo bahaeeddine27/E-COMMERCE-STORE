@@ -1,26 +1,26 @@
-import { create } from "zustand";
-import axios from "../lib/axios.js";
-import { toast } from "react-toastify";
+import { create } from 'zustand';
+import axios from '../lib/axios.js';
+import { toast } from 'react-toastify';
 
 // Création du store Zustand pour la gestion de l'utilisateur
 export const useUserStore = create((set) => ({
-  user: JSON.parse(localStorage.getItem("user")) || null, // Récupérer l'utilisateur depuis localStorage
+  user: JSON.parse(localStorage.getItem('user')) || null, // Récupérer l'utilisateur depuis localStorage
   loading: false,
   checkingAuth: false,
 
   // Fonction d'inscription d'un utilisateur
   signup: async ({ name, email, password, confirmPassword }) => {
     if (password !== confirmPassword) {
-      toast.error("Les mots de passe ne correspondent pas");
+      toast.error('Les mots de passe ne correspondent pas');
       return;
     }
     set({ loading: true });
     try {
-      const res = await axios.post("/auth/signup", { name, email, password });
+      const res = await axios.post('/auth/signup', { name, email, password });
       const user = res.data;
       set({ user, loading: false });
-      localStorage.setItem("user", JSON.stringify(user)); // Sauvegarder l'utilisateur
-      toast.success("Compte créé avec succès !");
+      localStorage.setItem('user', JSON.stringify(user)); // Sauvegarder l'utilisateur
+      toast.success('Compte créé avec succès !');
     } catch {
       set({ loading: false });
       toast.error("Une erreur s'est produite lors de l'inscription");
@@ -31,11 +31,11 @@ export const useUserStore = create((set) => ({
   login: async (email, password) => {
     set({ loading: true });
     try {
-      const res = await axios.post("/auth/login", { email, password });
+      const res = await axios.post('/auth/login', { email, password });
       const user = res.data;
       set({ user, loading: false });
-      localStorage.setItem("user", JSON.stringify(user)); // Sauvegarder l'utilisateur
-      toast.success("Connexion réussie !");
+      localStorage.setItem('user', JSON.stringify(user)); // Sauvegarder l'utilisateur
+      toast.success('Connexion réussie !');
     } catch {
       set({ loading: false });
       toast.error("Une erreur s'est produite lors de la connexion");
@@ -46,23 +46,23 @@ export const useUserStore = create((set) => ({
   checkAuth: async () => {
     set({ checkingAuth: true });
     try {
-      const response = await axios.get("/auth/profile");
+      const response = await axios.get('/auth/profile');
       const user = response.data;
       set({ user, checkingAuth: false });
-      localStorage.setItem("user", JSON.stringify(user)); // Sauvegarder l'utilisateur
+      localStorage.setItem('user', JSON.stringify(user)); // Sauvegarder l'utilisateur
     } catch {
       set({ checkingAuth: false, user: null });
-      localStorage.removeItem("user"); // Nettoyer le localStorage si l'utilisateur n'est pas authentifié
+      localStorage.removeItem('user'); // Nettoyer le localStorage si l'utilisateur n'est pas authentifié
     }
   },
 
   // Fonction de déconnexion de l'utilisateur
   logout: async () => {
     try {
-      await axios.post("/auth/logout");
+      await axios.post('/auth/logout');
       set({ user: null });
-      localStorage.removeItem("user"); // Supprimer l'utilisateur du localStorage
-      toast.success("Déconnexion réussie !");
+      localStorage.removeItem('user'); // Supprimer l'utilisateur du localStorage
+      toast.success('Déconnexion réussie !');
     } catch {
       toast.error("Une erreur s'est produite lors de la déconnexion");
     }
@@ -75,12 +75,12 @@ export const useUserStore = create((set) => ({
 
     set({ checkingAuth: true });
     try {
-      const response = await axios.post("/auth/refresh-token");
+      const response = await axios.post('/auth/refresh-token');
       set({ checkingAuth: false });
       return response.data;
     } catch {
       set({ user: null, checkingAuth: false });
-      throw new Error("Erreur lors du rafraîchissement du token");
+      throw new Error('Erreur lors du rafraîchissement du token');
     }
   },
 }));
@@ -116,5 +116,5 @@ axios.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  },
+  }
 );

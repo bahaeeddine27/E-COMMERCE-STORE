@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import axios from "../lib/axios";
-import { toast } from "react-hot-toast";
+import { create } from 'zustand';
+import axios from '../lib/axios';
+import { toast } from 'react-hot-toast';
 
 // Création du store Zustand pour gérer le panier
 export const useCartStore = create((set, get) => ({
@@ -13,24 +13,22 @@ export const useCartStore = create((set, get) => ({
   // Récupération des coupons disponibles
   getMyCoupon: async () => {
     try {
-      const response = await axios.get("/coupons"); // Appel de l'API pour récupérer les coupons
+      const response = await axios.get('/coupons'); // Appel de l'API pour récupérer les coupons
       set({ coupon: response.data }); // Mise à jour du coupon dans le store
     } catch (error) {
-      console.error("Erreur lors de la récupération du coupon :", error);
+      console.error('Erreur lors de la récupération du coupon :', error);
     }
   },
 
   // Application d'un coupon au panier
   applyCoupon: async (code) => {
     try {
-      const response = await axios.post("/coupons/validate", { code }); // Validation du coupon
+      const response = await axios.post('/coupons/validate', { code }); // Validation du coupon
       set({ coupon: response.data, isCouponApplied: true }); // Mise à jour de l'état
       get().calculateTotals(); // Recalcul des totaux avec le coupon
-      toast.success("Coupon appliqué avec succès");
+      toast.success('Coupon appliqué avec succès');
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Échec de l'application du coupon",
-      );
+      toast.error(error.response?.data?.message || "Échec de l'application du coupon");
     }
   },
 
@@ -38,13 +36,13 @@ export const useCartStore = create((set, get) => ({
   removeCoupon: () => {
     set({ coupon: null, isCouponApplied: false }); // Réinitialise le coupon
     get().calculateTotals(); // Recalcul des totaux sans le coupon
-    toast.success("Coupon supprimé");
+    toast.success('Coupon supprimé');
   },
 
   // Récupération des éléments du panier depuis l'API
   getCartItems: async () => {
     try {
-      const res = await axios.get("/cart"); // Appel pour récupérer les articles du panier
+      const res = await axios.get('/cart'); // Appel pour récupérer les articles du panier
       set({ cart: res.data }); // Mise à jour du panier dans le store
       get().calculateTotals(); // Calcul des totaux après mise à jour
     } catch (error) {
@@ -61,19 +59,15 @@ export const useCartStore = create((set, get) => ({
   // Ajout d'un produit au panier
   addToCart: async (product) => {
     try {
-      await axios.post("/cart", { productId: product._id }); // Ajout au panier via l'API
-      toast.success("Produit ajouté au panier");
+      await axios.post('/cart', { productId: product._id }); // Ajout au panier via l'API
+      toast.success('Produit ajouté au panier');
 
       // Mise à jour du panier localement
       set((prevState) => {
-        const existingItem = prevState.cart.find(
-          (item) => item._id === product._id,
-        );
+        const existingItem = prevState.cart.find((item) => item._id === product._id);
         const newCart = existingItem
           ? prevState.cart.map((item) =>
-              item._id === product._id
-                ? { ...item, quantity: item.quantity + 1 }
-                : item,
+              item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
             )
           : [...prevState.cart, { ...product, quantity: 1 }];
         return { cart: newCart };
@@ -102,9 +96,7 @@ export const useCartStore = create((set, get) => ({
 
     await axios.put(`/cart/${productId}`, { quantity }); // Mise à jour via l'API
     set((prevState) => ({
-      cart: prevState.cart.map((item) =>
-        item._id === productId ? { ...item, quantity } : item,
-      ),
+      cart: prevState.cart.map((item) => (item._id === productId ? { ...item, quantity } : item)),
     }));
     get().calculateTotals(); // Recalcul des totaux
   },
@@ -112,10 +104,7 @@ export const useCartStore = create((set, get) => ({
   // Calcul des totaux (sous-total et total avec remise)
   calculateTotals: () => {
     const { cart, coupon } = get(); // Récupère le panier et le coupon depuis le store
-    const subtotal = cart.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0,
-    ); // Calcule le sous-total
+    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0); // Calcule le sous-total
     let total = subtotal;
 
     if (coupon) {

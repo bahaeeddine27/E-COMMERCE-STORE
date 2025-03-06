@@ -1,0 +1,26 @@
+version: 2
+updates:
+  # Mise à jour des dépendances npm
+  - package-ecosystem: 'npm'
+    directory: '/' # Racine du projet
+    schedule:
+      interval: 'weekly' # Vérification hebdomadaire des mises à jour
+    open-pull-requests-limit: 10 # Limite à 10 PR ouvertes simultanément
+    ignore:
+      - dependency-name: 'express'
+        versions: ['4.x'] # Ignore les mises à jour majeures d'Express 4.x
+    reviewers:
+      - 'bahaeeddine27' # Ajoutez votre pseudo GitHub comme reviewer
+    labels:
+      - 'dependencies'
+      - 'npm'
+
+  # Mise à jour des GitHub Actions (workflows)
+  - package-ecosystem: 'github-actions'
+    directory: '/' # Vérification des mises à jour dans le répertoire des actions GitHub
+    schedule:
+      interval: 'weekly'
+    reviewers:
+      - 'bahaeddine27'
+    labels:
+      - 'github-actions'

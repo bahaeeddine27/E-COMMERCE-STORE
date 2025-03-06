@@ -1,0 +1,14 @@
+{
+  "env": {
+    "node": true,
+    "es2020": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "no-console": "warn", // Avertir lorsque 'console' est utilisé
+    "no-unused-vars": "warn" // Avertir sur les variables inutilisées
+  }
+}

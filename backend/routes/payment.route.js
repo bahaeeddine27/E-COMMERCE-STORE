@@ -1,6 +1,6 @@
-import express from "express";
-import { protectRoute } from "../middleware/auth.middleware.js";
-import { checkoutSuccess, createCheckoutSession } from "../controllers/payment.controller.js";
+import express from 'express';
+import { protectRoute } from '../middleware/auth.middleware.js';
+import { checkoutSuccess, createCheckoutSession } from '../controllers/payment.controller.js';
 
 const router = express.Router();
 
@@ -30,7 +30,7 @@ const router = express.Router();
  *       400:
  *         description: Erreur lors de la création de la session
  */
-router.post("/create-checkout-session", protectRoute, createCheckoutSession);
+router.post('/create-checkout-session', protectRoute, createCheckoutSession);
 
 /**
  * @swagger
@@ -55,6 +55,6 @@ router.post("/create-checkout-session", protectRoute, createCheckoutSession);
  *       400:
  *         description: Erreur lors du traitement du succès du checkout
  */
-router.post("/checkout-success", protectRoute, checkoutSuccess);
+router.post('/checkout-success', protectRoute, checkoutSuccess);
 
 export default router;

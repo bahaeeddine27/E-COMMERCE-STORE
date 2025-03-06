@@ -1,5 +1,5 @@
-import express from "express";
-import { login, logout, signup, refreshToken, getProfile } from "../controllers/auth.controller.js";
+import express from 'express';
+import { login, logout, signup, refreshToken, getProfile } from '../controllers/auth.controller.js';
 import { protectRoute } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
@@ -31,7 +31,7 @@ const router = express.Router();
  *       400:
  *         description: Erreur de validation des données
  */
-router.post("/signup", signup);
+router.post('/signup', signup);
 
 /**
  * @swagger
@@ -57,7 +57,7 @@ router.post("/signup", signup);
  *       401:
  *         description: Échec de la connexion (mauvais email ou mot de passe)
  */
-router.post("/login", login);
+router.post('/login', login);
 
 /**
  * @swagger
@@ -72,7 +72,7 @@ router.post("/login", login);
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.post("/logout", logout);
+router.post('/logout', logout);
 
 /**
  * @swagger
@@ -97,7 +97,7 @@ router.post("/logout", logout);
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.post("/refresh-token", refreshToken);
+router.post('/refresh-token', refreshToken);
 
 /**
  * @swagger
@@ -112,6 +112,6 @@ router.post("/refresh-token", refreshToken);
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.get("/profile", protectRoute, getProfile);
+router.get('/profile', protectRoute, getProfile);
 
 export default router;

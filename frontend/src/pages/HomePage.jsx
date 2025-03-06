@@ -1,49 +1,47 @@
-import { useEffect } from "react";
-import { CategoryItem } from "../components/CategoryItem.jsx";
-import { useProductStore } from "../stores/useProductStore.js";
-import FeaturedProducts from "../components/FeaturedProducts.jsx";
-import { FaBook, FaChalkboardTeacher, FaQuoteLeft } from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Disclosure } from "@headlessui/react";
-import { motion } from "framer-motion";
+import { useEffect } from 'react';
+import { CategoryItem } from '../components/CategoryItem.jsx';
+import { useProductStore } from '../stores/useProductStore.js';
+import FeaturedProducts from '../components/FeaturedProducts.jsx';
+import { FaBook, FaChalkboardTeacher, FaQuoteLeft } from 'react-icons/fa';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Disclosure } from '@headlessui/react';
+import { motion } from 'framer-motion';
 
 const categories = [
   {
-    href: "e-books",
-    name: "E-books",
-    imageUrl: "/product.jpg",
+    href: 'e-books',
+    name: 'E-books',
+    imageUrl: '/product.jpg',
     icon: <FaBook />,
   },
   {
-    href: "cours",
-    name: "Cours",
-    imageUrl: "/product.jpg",
+    href: 'cours',
+    name: 'Cours',
+    imageUrl: '/product.jpg',
     icon: <FaChalkboardTeacher />,
   },
 ];
 
 const testimonials = [
   {
-    name: "Alice Dupont",
-    text: "Les e-books sont très bien faits et faciles à suivre !",
+    name: 'Alice Dupont',
+    text: 'Les e-books sont très bien faits et faciles à suivre !',
   },
 ];
 
 const faqs = [
   {
-    question: "Quels sont les modes de paiement acceptés ?",
-    answer: "Nous acceptons les paiements via Stripe.",
+    question: 'Quels sont les modes de paiement acceptés ?',
+    answer: 'Nous acceptons les paiements via Stripe.',
   },
   {
     question: "Puis-je télécharger mes e-books après l'achat ?",
-    answer:
-      "Oui, une fois votre achat effectué, vous recevrez un lien de téléchargement.",
+    answer: 'Oui, une fois votre achat effectué, vous recevrez un lien de téléchargement.',
   },
   {
-    question: "Les cours sont-ils accessibles à vie ?",
-    answer:
-      "Oui, une fois achetés, vous pouvez y accéder sans limite de temps.",
+    question: 'Les cours sont-ils accessibles à vie ?',
+    answer: 'Oui, une fois achetés, vous pouvez y accéder sans limite de temps.',
   },
 ];
 
@@ -99,12 +97,8 @@ const HomePage = () => {
           {testimonials.map((testimonial, index) => (
             <SwiperSlide key={index} className="text-center px-8">
               <FaQuoteLeft className="text-emerald-400 text-3xl mb-4 mx-auto" />
-              <p className="text-lg text-gray-300 italic">
-                “{testimonial.text}”
-              </p>
-              <h3 className="text-xl font-bold text-white mt-4">
-                {testimonial.name}
-              </h3>
+              <p className="text-lg text-gray-300 italic">“{testimonial.text}”</p>
+              <h3 className="text-xl font-bold text-white mt-4">{testimonial.name}</h3>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -112,9 +106,7 @@ const HomePage = () => {
 
       {/* FAQ */}
       <section className="py-16 px-4 max-w-4xl mx-auto">
-        <h2 className="text-center text-4xl font-bold text-emerald-400 mb-6">
-          FAQ
-        </h2>
+        <h2 className="text-center text-4xl font-bold text-emerald-400 mb-6">FAQ</h2>
         {faqs.map((faq, index) => (
           <Disclosure key={index}>
             {({ open }) => (
@@ -123,9 +115,7 @@ const HomePage = () => {
                   {faq.question}
                 </Disclosure.Button>
                 {open && (
-                  <Disclosure.Panel className="p-4 text-gray-300">
-                    {faq.answer}
-                  </Disclosure.Panel>
+                  <Disclosure.Panel className="p-4 text-gray-300">{faq.answer}</Disclosure.Panel>
                 )}
               </div>
             )}
@@ -135,9 +125,7 @@ const HomePage = () => {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-center py-6 text-gray-400">
-        <p>
-          &copy; {new Date().getFullYear()} DIGIT-SELL - Tous droits réservés.
-        </p>
+        <p>&copy; {new Date().getFullYear()} DIGIT-SELL - Tous droits réservés.</p>
       </footer>
     </div>
   );

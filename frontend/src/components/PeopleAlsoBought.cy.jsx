@@ -1,7 +1,7 @@
-import PeopleAlsoBought from "./PeopleAlsoBought";
+import PeopleAlsoBought from './PeopleAlsoBought';
 
-describe("<PeopleAlsoBought />", () => {
-  it("renders", () => {
+describe('<PeopleAlsoBought />', () => {
+  it('renders', () => {
     // see: https://on.cypress.io/mounting-react
     cy.mount(<PeopleAlsoBought />);
   });

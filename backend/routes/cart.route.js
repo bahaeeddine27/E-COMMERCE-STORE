@@ -1,5 +1,10 @@
 import express from 'express';
-import { addToCart, removeAllFromCart, getCartProducts, updateQuantity } from '../controllers/cart.controller.js';
+import {
+  addToCart,
+  removeAllFromCart,
+  getCartProducts,
+  updateQuantity,
+} from '../controllers/cart.controller.js';
 import { protectRoute } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
@@ -17,7 +22,7 @@ const router = express.Router();
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.get("/", protectRoute, getCartProducts);
+router.get('/', protectRoute, getCartProducts);
 
 /**
  * @swagger
@@ -47,7 +52,7 @@ router.get("/", protectRoute, getCartProducts);
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.post("/", protectRoute, addToCart);
+router.post('/', protectRoute, addToCart);
 
 /**
  * @swagger
@@ -62,7 +67,7 @@ router.post("/", protectRoute, addToCart);
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.delete("/", protectRoute, removeAllFromCart);
+router.delete('/', protectRoute, removeAllFromCart);
 
 /**
  * @swagger
@@ -96,6 +101,6 @@ router.delete("/", protectRoute, removeAllFromCart);
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.put("/:id", protectRoute, updateQuantity);
+router.put('/:id', protectRoute, updateQuantity);
 
 export default router;

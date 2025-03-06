@@ -1,9 +1,9 @@
-import { ArrowRight, CheckCircle, HandHeart } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useCartStore } from "../stores/useCartStore";
-import axios from "../lib/axios";
-import Confetti from "react-confetti";
+import { ArrowRight, CheckCircle, HandHeart } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useCartStore } from '../stores/useCartStore';
+import axios from '../lib/axios';
+import Confetti from 'react-confetti';
 
 const PurchaseSuccessPage = () => {
   const [isProcessing, setIsProcessing] = useState(true);
@@ -13,7 +13,7 @@ const PurchaseSuccessPage = () => {
   useEffect(() => {
     const handleCheckoutSuccess = async (sessionId) => {
       try {
-        await axios.post("/payments/checkout-success", {
+        await axios.post('/payments/checkout-success', {
           sessionId,
         });
         clearCart();
@@ -24,9 +24,7 @@ const PurchaseSuccessPage = () => {
       }
     };
 
-    const sessionId = new URLSearchParams(window.location.search).get(
-      "session_id",
-    );
+    const sessionId = new URLSearchParams(window.location.search).get('session_id');
     if (sessionId) {
       handleCheckoutSuccess(sessionId);
     } else {
@@ -35,7 +33,7 @@ const PurchaseSuccessPage = () => {
     }
   }, [clearCart]);
 
-  if (isProcessing) return "Traitement...";
+  if (isProcessing) return 'Traitement...';
 
   if (error) return `Error: ${error}`;
 
@@ -63,15 +61,13 @@ const PurchaseSuccessPage = () => {
             Merci pour votre commande. Nous le traitons maintenant..
           </p>
           <p className="text-emerald-400 text-center text-sm mb-6">
-            Vérifiez votre courrier électronique pour les détails de la commande
-            et les mises à jour.
+            Vérifiez votre courrier électronique pour les détails de la commande et les mises à
+            jour.
           </p>
           <div className="bg-gray-700 rounded-lg p-4 mb-6">
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-400">Livraison estimée</span>
-              <span className="text-sm font-semibold text-emerald-400">
-                3-5 jours ouvrables
-              </span>
+              <span className="text-sm font-semibold text-emerald-400">3-5 jours ouvrables</span>
             </div>
           </div>
 
@@ -84,7 +80,7 @@ const PurchaseSuccessPage = () => {
               Merci de nous faire confiance !
             </button>
             <Link
-              to={"/"}
+              to={'/'}
               className="w-full bg-gray-700 hover:bg-gray-600 text-emerald-400 font-bold py-2 px-4 
             rounded-lg transition duration-300 flex items-center justify-center"
             >

@@ -1,33 +1,33 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   css: {
-    postcss: "./postcss.config.js",
+    postcss: './postcss.config.js',
   },
   test: {
     coverage: {
-      reporter: ["text", "html"],
+      reporter: ['text', 'html'],
     },
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/setupTests.js'
+    setupFiles: './src/setupTests.js',
   },
   server: {
     proxy: {
-      "/api": {
-        target: "http://localhost:5000",
+      '/api': {
+        target: 'http://localhost:5000',
         changeOrigin: true,
-        secure: false
+        secure: false,
       },
     },
   },
   build: {
-    minify: 'esbuild',  // Utilisation de esbuild pour une minification rapide
-    sourcemap: false,   // Désactiver les sourcemaps en production pour économiser de l'espace
-    chunkSizeWarningLimit: 500,  // Ajuster la limite pour les avertissements de taille de chunk
+    minify: 'esbuild', // Utilisation de esbuild pour une minification rapide
+    sourcemap: false, // Désactiver les sourcemaps en production pour économiser de l'espace
+    chunkSizeWarningLimit: 500, // Ajuster la limite pour les avertissements de taille de chunk
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -37,18 +37,14 @@ export default defineConfig({
         },
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
-      }
-    }
+        assetFileNames: 'assets/[name].[hash].[ext]',
+      },
+    },
   },
   optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'react-router-dom'
-    ],
+    include: ['react', 'react-dom', 'react-router-dom'],
     exclude: [
-      'cypress'  // Exclure Cypress car il est utilisé uniquement pour les tests end-to-end
-    ]
-  }
+      'cypress', // Exclure Cypress car il est utilisé uniquement pour les tests end-to-end
+    ],
+  },
 });

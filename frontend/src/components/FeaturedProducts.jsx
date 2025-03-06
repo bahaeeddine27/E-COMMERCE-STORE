@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
-import { useCartStore } from "../stores/useCartStore";
+import { useEffect, useState } from 'react';
+import { ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCartStore } from '../stores/useCartStore';
 
 const FeaturedProducts = ({ featuredProducts }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,8 +17,8 @@ const FeaturedProducts = ({ featuredProducts }) => {
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const nextSlide = () => {
@@ -60,9 +60,7 @@ const FeaturedProducts = ({ featuredProducts }) => {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="text-lg font-semibold mb-2 text-white">
-                        {product.name}
-                      </h3>
+                      <h3 className="text-lg font-semibold mb-2 text-white">{product.name}</h3>
                       <p className="text-emerald-300 font-medium mb-4">
                         ${product.price.toFixed(2)}
                       </p>
@@ -85,8 +83,8 @@ const FeaturedProducts = ({ featuredProducts }) => {
             disabled={isStartDisabled}
             className={`absolute top-1/2 -left-4 transform -translate-y-1/2 p-2 rounded-full transition-colors duration-300 ${
               isStartDisabled
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-emerald-600 hover:bg-emerald-500"
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-emerald-600 hover:bg-emerald-500'
             }`}
           >
             <ChevronLeft className="w-6 h-6" />
@@ -97,8 +95,8 @@ const FeaturedProducts = ({ featuredProducts }) => {
             disabled={isEndDisabled}
             className={`absolute top-1/2 -right-4 transform -translate-y-1/2 p-2 rounded-full transition-colors duration-300 ${
               isEndDisabled
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-emerald-600 hover:bg-emerald-500"
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-emerald-600 hover:bg-emerald-500'
             }`}
           >
             <ChevronRight className="w-6 h-6" />

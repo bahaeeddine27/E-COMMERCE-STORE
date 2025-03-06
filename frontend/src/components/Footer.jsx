@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -11,10 +11,7 @@ const Footer = () => {
           >
             Politique de confidentialité
           </Link>
-          <Link
-            to="/mentions-legales"
-            className="hover:text-emerald-400 transition duration-300"
-          >
+          <Link to="/mentions-legales" className="hover:text-emerald-400 transition duration-300">
             Mentions légales
           </Link>
           <Link

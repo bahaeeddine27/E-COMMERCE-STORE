@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import { useCartStore } from "../stores/useCartStore.js";
-import { motion } from "framer-motion";
-import { ShoppingCart } from "lucide-react";
-import CartItem from "../components/CartItem";
-import PeopleAlsoBought from "../components/PeopleAlsoBought";
-import OrderSummary from "../components/OrderSummary";
-import GiftCouponCard from "../components/GiftCouponCard";
+import { Link } from 'react-router-dom';
+import { useCartStore } from '../stores/useCartStore.js';
+import { motion } from 'framer-motion';
+import { ShoppingCart } from 'lucide-react';
+import CartItem from '../components/CartItem';
+import PeopleAlsoBought from '../components/PeopleAlsoBought';
+import OrderSummary from '../components/OrderSummary';
+import GiftCouponCard from '../components/GiftCouponCard';
 
 const CartPage = () => {
   const { cart } = useCartStore();
@@ -60,8 +60,7 @@ const EmptyCartUI = () => (
     <ShoppingCart className="h-24 w-24 text-gray-300" />
     <h3 className="text-2xl font-semibold ">Votre panier est vide</h3>
     <p className="text-gray-400">
-      Il semble que vous {"n'avez"} pas encore ajouté quoi que ce soit à votre
-      panier.
+      Il semble que vous {"n'avez"} pas encore ajouté quoi que ce soit à votre panier.
     </p>
     <Link
       className="mt-4 rounded-md bg-emerald-500 px-6 py-2 text-white transition-colors hover:bg-emerald-600"

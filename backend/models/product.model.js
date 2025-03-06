@@ -1,34 +1,37 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     price: {
-        type: Number,
-        required: true,
-        min: 0
+      type: Number,
+      required: true,
+      min: 0,
     },
     image: {
-        type: String,
-        required: true,
-        default: "URL_DE_L_IMAGE_PAR_DÉFAUT"
+      type: String,
+      required: true,
+      default: 'URL_DE_L_IMAGE_PAR_DÉFAUT',
     },
     category: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     isFeatured: {
-        type: Boolean,
-        default: false
-    }
-}, {timestamps: true});
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true }
+);
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 export default Product;

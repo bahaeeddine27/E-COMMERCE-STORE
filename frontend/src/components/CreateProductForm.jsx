@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { PlusCircle, Upload } from "lucide-react";
-import { useProductStore } from "../stores/useProductStore";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { PlusCircle, Upload } from 'lucide-react';
+import { useProductStore } from '../stores/useProductStore';
 
-const categories = ["e-books", "cours"];
+const categories = ['e-books', 'cours'];
 const CreateProductForm = () => {
   const [newProduct, setNewProduct] = useState({
-    name: "",
-    description: "",
-    price: "",
-    category: "",
-    image: "",
+    name: '',
+    description: '',
+    price: '',
+    category: '',
+    image: '',
   });
   const { createProduct } = useProductStore();
   const handleSubmit = async (e) => {
@@ -18,14 +18,14 @@ const CreateProductForm = () => {
     try {
       await createProduct(newProduct);
       setNewProduct({
-        name: "",
-        description: "",
-        price: "",
-        category: "",
-        image: "",
+        name: '',
+        description: '',
+        price: '',
+        category: '',
+        image: '',
       });
     } catch {
-      console.log("error creating a product");
+      console.log('error creating a product');
     }
   };
 
@@ -48,15 +48,10 @@ const CreateProductForm = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <h2 className="text-2xl font-semibold mb-6 text-emerald-300">
-        Créer un nouveau produit
-      </h2>
+      <h2 className="text-2xl font-semibold mb-6 text-emerald-300">Créer un nouveau produit</h2>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-300"
-          >
+          <label htmlFor="name" className="block text-sm font-medium text-gray-300">
             Nom de produit
           </label>
           <input
@@ -64,18 +59,13 @@ const CreateProductForm = () => {
             id="name"
             name="name"
             value={newProduct.name}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, name: e.target.value })
-            }
+            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
             className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
             required
           />
         </div>
         <div>
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-300"
-          >
+          <label htmlFor="description" className="block text-sm font-medium text-gray-300">
             Description
           </label>
           <textarea
@@ -83,19 +73,14 @@ const CreateProductForm = () => {
             id="description"
             name="description"
             value={newProduct.description}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, description: e.target.value })
-            }
+            onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
             rows="3"
             className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
             required
           />
         </div>
         <div>
-          <label
-            htmlFor="price"
-            className="block text-sm font-medium text-gray-300"
-          >
+          <label htmlFor="price" className="block text-sm font-medium text-gray-300">
             Prix
           </label>
           <input
@@ -103,28 +88,21 @@ const CreateProductForm = () => {
             id="price"
             name="price"
             value={newProduct.price}
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, price: e.target.value })
-            }
+            onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
             step="0.01"
             className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
             required
           />
         </div>
         <div>
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-300"
-          >
+          <label htmlFor="category" className="block text-sm font-medium text-gray-300">
             Categories
           </label>
           <select
             id="category"
             value={newProduct.category}
             name="category"
-            onChange={(e) =>
-              setNewProduct({ ...newProduct, category: e.target.value })
-            }
+            onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
             className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
             required
           >
@@ -151,9 +129,7 @@ const CreateProductForm = () => {
             <Upload className="h-5 w-5 inline-block mr-2" />
             Téléverser une image
           </label>
-          {newProduct.image && (
-            <span className="ml-3 text-sm text-gray-400">Image téléversé</span>
-          )}
+          {newProduct.image && <span className="ml-3 text-sm text-gray-400">Image téléversé</span>}
         </div>
         <button
           type="submit"

@@ -1,6 +1,6 @@
-import express from "express";
-import { protectRoute } from "../middleware/auth.middleware.js";
-import { getCoupon, validateCoupon } from "../controllers/coupon.controller.js";
+import express from 'express';
+import { protectRoute } from '../middleware/auth.middleware.js';
+import { getCoupon, validateCoupon } from '../controllers/coupon.controller.js';
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ const router = express.Router();
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.get("/", protectRoute, getCoupon);
+router.get('/', protectRoute, getCoupon);
 
 /**
  * @swagger
@@ -44,6 +44,6 @@ router.get("/", protectRoute, getCoupon);
  *       401:
  *         description: Non autorisé, token manquant ou invalide
  */
-router.post("/validate", protectRoute, validateCoupon);
+router.post('/validate', protectRoute, validateCoupon);
 
 export default router;

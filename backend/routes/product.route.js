@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import {
   deleteProduct,
   createProduct,
@@ -9,8 +9,8 @@ import {
   toggleFeaturedProduct,
   updateProductPrice,
   getProductById,
-} from "../controllers/product.controller.js";
-import { protectRoute, adminRoute } from "../middleware/auth.middleware.js";
+} from '../controllers/product.controller.js';
+import { protectRoute, adminRoute } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
@@ -25,7 +25,7 @@ const router = express.Router();
  *       200:
  *         description: Liste de tous les produits
  */
-router.get("/", protectRoute, adminRoute, getAllProducts);
+router.get('/', protectRoute, adminRoute, getAllProducts);
 
 /**
  * @swagger
@@ -36,7 +36,7 @@ router.get("/", protectRoute, adminRoute, getAllProducts);
  *       200:
  *         description: Retourne les produits en vedette
  */
-router.get("/featured", getFeaturedProducts);
+router.get('/featured', getFeaturedProducts);
 
 /**
  * @swagger
@@ -53,7 +53,7 @@ router.get("/featured", getFeaturedProducts);
  *       200:
  *         description: Liste des produits de la catégorie demandée
  */
-router.get("/category/:category", getProductsByCategory);
+router.get('/category/:category', getProductsByCategory);
 
 /**
  * @swagger
@@ -64,7 +64,7 @@ router.get("/category/:category", getProductsByCategory);
  *       200:
  *         description: Liste des produits recommandés
  */
-router.get("/recommendations", getRecommendedProducts);
+router.get('/recommendations', getRecommendedProducts);
 
 /**
  * @swagger
@@ -90,7 +90,7 @@ router.get("/recommendations", getRecommendedProducts);
  *       201:
  *         description: Produit créé avec succès
  */
-router.post("/", protectRoute, adminRoute, createProduct);
+router.post('/', protectRoute, adminRoute, createProduct);
 
 /**
  * @swagger
@@ -107,7 +107,7 @@ router.post("/", protectRoute, adminRoute, createProduct);
  *       200:
  *         description: Détails du produit demandé
  */
-router.get("/:id", getProductById);
+router.get('/:id', getProductById);
 
 /**
  * @swagger
@@ -126,7 +126,7 @@ router.get("/:id", getProductById);
  *       200:
  *         description: Produit mis en avant
  */
-router.patch("/:id", protectRoute, adminRoute, toggleFeaturedProduct);
+router.patch('/:id', protectRoute, adminRoute, toggleFeaturedProduct);
 
 /**
  * @swagger
@@ -145,7 +145,7 @@ router.patch("/:id", protectRoute, adminRoute, toggleFeaturedProduct);
  *       200:
  *         description: Produit supprimé
  */
-router.delete("/:id", protectRoute, adminRoute, deleteProduct);
+router.delete('/:id', protectRoute, adminRoute, deleteProduct);
 
 /**
  * @swagger
@@ -173,6 +173,6 @@ router.delete("/:id", protectRoute, adminRoute, deleteProduct);
  *       200:
  *         description: Prix mis à jour
  */
-router.patch("/:id/price", protectRoute, adminRoute, updateProductPrice);
+router.patch('/:id/price', protectRoute, adminRoute, updateProductPrice);
 
 export default router;

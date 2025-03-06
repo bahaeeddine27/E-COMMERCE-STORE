@@ -1,20 +1,15 @@
-import { motion } from "framer-motion";
-import { Trash, Star, Edit } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useProductStore } from "../stores/useProductStore.js";
+import { motion } from 'framer-motion';
+import { Trash, Star, Edit } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useProductStore } from '../stores/useProductStore.js';
 
 const ProductsList = () => {
-  const {
-    deleteProduct,
-    toggleFeaturedProduct,
-    fetchAllProducts,
-    products,
-    updateProductPrice,
-  } = useProductStore();
+  const { deleteProduct, toggleFeaturedProduct, fetchAllProducts, products, updateProductPrice } =
+    useProductStore();
 
   // State pour gérer la modification du prix
   const [editingPrice, setEditingPrice] = useState(null);
-  const [newPrice, setNewPrice] = useState("");
+  const [newPrice, setNewPrice] = useState('');
 
   // Fetch products on component mount
   useEffect(() => {
@@ -26,9 +21,9 @@ const ProductsList = () => {
     if (newPrice && !isNaN(parseFloat(newPrice))) {
       updateProductPrice(productId, parseFloat(newPrice));
       setEditingPrice(null);
-      setNewPrice("");
+      setNewPrice('');
     } else {
-      alert("Veuillez entrer un prix valide");
+      alert('Veuillez entrer un prix valide');
     }
   };
 
@@ -88,9 +83,7 @@ const ProductsList = () => {
                       />
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-white">
-                        {product.name}
-                      </div>
+                      <div className="text-sm font-medium text-white">{product.name}</div>
                     </div>
                   </div>
                 </td>
@@ -117,17 +110,15 @@ const ProductsList = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-300">
-                    {product.category}
-                  </div>
+                  <div className="text-sm text-gray-300">{product.category}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button
                     onClick={() => toggleFeaturedProduct(product._id)}
                     className={`p-1 rounded-full ${
                       product.isFeatured
-                        ? "bg-yellow-400 text-gray-900"
-                        : "bg-gray-600 text-gray-300"
+                        ? 'bg-yellow-400 text-gray-900'
+                        : 'bg-gray-600 text-gray-300'
                     } hover:bg-yellow-500 transition-colors duration-200`}
                   >
                     <Star className="h-5 w-5" />
@@ -151,10 +142,7 @@ const ProductsList = () => {
             ))
           ) : (
             <tr>
-              <td
-                colSpan="5"
-                className="px-6 py-4 text-center text-sm text-gray-300"
-              >
+              <td colSpan="5" className="px-6 py-4 text-center text-sm text-gray-300">
                 Pas de produits
               </td>
             </tr>

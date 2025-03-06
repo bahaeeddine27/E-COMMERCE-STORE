@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import axios from "../lib/axios";
-import { Users, Package, ShoppingCart } from "lucide-react";
-import { FaEuroSign } from "react-icons/fa"; // Importation de l'icône Euro de react-icons
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import axios from '../lib/axios';
+import { Users, Package, ShoppingCart } from 'lucide-react';
+import { FaEuroSign } from 'react-icons/fa'; // Importation de l'icône Euro de react-icons
 import {
   LineChart,
   Line,
@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from "recharts";
+} from 'recharts';
 
 const AnalyticsTab = () => {
   const [analyticsData, setAnalyticsData] = useState({
@@ -27,11 +27,11 @@ const AnalyticsTab = () => {
   useEffect(() => {
     const fetchAnalyticsData = async () => {
       try {
-        const response = await axios.get("/analytics");
+        const response = await axios.get('/analytics');
         setAnalyticsData(response.data.analyticsData);
         setDailySalesData(response.data.dailySalesData);
       } catch (error) {
-        console.error("Error fetching analytics data:", error);
+        console.error('Error fetching analytics data:', error);
       } finally {
         setIsLoading(false);
       }
@@ -81,8 +81,7 @@ const AnalyticsTab = () => {
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={dailySalesData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" stroke="#D1D5DB" />{" "}
-            {/* Utilisation de "date" comme clé */}
+            <XAxis dataKey="date" stroke="#D1D5DB" /> {/* Utilisation de "date" comme clé */}
             <YAxis yAxisId="left" stroke="#D1D5DB" />
             <YAxis yAxisId="right" orientation="right" stroke="#D1D5DB" />
             <Tooltip />

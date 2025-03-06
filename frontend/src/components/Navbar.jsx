@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ShoppingCart, UserPlus, LogIn, LogOut, X } from "lucide-react";
-import { useUserStore } from "../stores/useUserStore";
-import { useCartStore } from "../stores/useCartStore";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ShoppingCart, UserPlus, LogIn, LogOut, X } from 'lucide-react';
+import { useUserStore } from '../stores/useUserStore';
+import { useCartStore } from '../stores/useCartStore';
 
 const Navbar = () => {
   const { user, logout } = useUserStore();
-  const admin = user?.role === "admin";
+  const admin = user?.role === 'admin';
   const { cart } = useCartStore();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -36,17 +36,14 @@ const Navbar = () => {
 
         {/* Navigation */}
         <nav
-          className={`absolute top-16 right-0 w-3/4 bg-gray-900 p-5 flex flex-col gap-4 md:relative md:top-auto md:w-auto md:bg-transparent md:flex-row md:items-center md:gap-6 ${menuOpen ? "block" : "hidden md:flex"}`}
+          className={`absolute top-16 right-0 w-3/4 bg-gray-900 p-5 flex flex-col gap-4 md:relative md:top-auto md:w-auto md:bg-transparent md:flex-row md:items-center md:gap-6 ${menuOpen ? 'block' : 'hidden md:flex'}`}
         >
           <Link to="/" className="text-gray-300 hover:text-emerald-400">
             Accueil
           </Link>
 
           {user && (
-            <Link
-              to="/cart"
-              className="relative text-gray-300 hover:text-emerald-400"
-            >
+            <Link to="/cart" className="relative text-gray-300 hover:text-emerald-400">
               <ShoppingCart size={20} />
               {cart.length > 0 && (
                 <span className="absolute -top-2 -left-2 bg-emerald-500 text-white rounded-full px-2 py-0.5 text-xs">

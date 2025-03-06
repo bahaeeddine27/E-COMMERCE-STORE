@@ -1,6 +1,6 @@
-import express from "express";
-import { protectRoute, adminRoute } from "../middleware/auth.middleware.js";
-import { getAnalyticsData, getDailySalesData } from "../controllers/analytics.controller.js";
+import express from 'express';
+import { protectRoute, adminRoute } from '../middleware/auth.middleware.js';
+import { getAnalyticsData, getDailySalesData } from '../controllers/analytics.controller.js';
 
 const router = express.Router(); // Création d'un routeur Express
 
@@ -40,30 +40,30 @@ const router = express.Router(); // Création d'un routeur Express
  *       500:
  *         description: Erreur interne du serveur
  */
-router.get("/", protectRoute, adminRoute, async (req, res) => {
-    try {
-        // Appel de la fonction pour récupérer les données analytiques générales
-        const analyticsData = await getAnalyticsData();
+router.get('/', protectRoute, adminRoute, async (req, res) => {
+  try {
+    // Appel de la fonction pour récupérer les données analytiques générales
+    const analyticsData = await getAnalyticsData();
 
-        // Définir une plage de dates pour les ventes des 7 derniers jours
-        const endDate = new Date(); // Date actuelle
-        const startDate = new Date(endDate.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 jours avant la date actuelle
+    // Définir une plage de dates pour les ventes des 7 derniers jours
+    const endDate = new Date(); // Date actuelle
+    const startDate = new Date(endDate.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 jours avant la date actuelle
 
-        // Appel de la fonction pour récupérer les données des ventes quotidiennes sur la période spécifiée
-        const dailySalesData = await getDailySalesData(startDate, endDate);
+    // Appel de la fonction pour récupérer les données des ventes quotidiennes sur la période spécifiée
+    const dailySalesData = await getDailySalesData(startDate, endDate);
 
-        // Envoi de la réponse avec les données analytiques et les ventes quotidiennes
-        res.json({
-            analyticsData,
-            dailySalesData,
-        });
-    } catch (error) {
-        // Log en cas d'erreur dans la gestion de la route
-        console.log("Erreur dans l'itinéraire d'analyse", error.message);
+    // Envoi de la réponse avec les données analytiques et les ventes quotidiennes
+    res.json({
+      analyticsData,
+      dailySalesData,
+    });
+  } catch (error) {
+    // Log en cas d'erreur dans la gestion de la route
+    console.log("Erreur dans l'itinéraire d'analyse", error.message);
 
-        // Retourne une réponse d'erreur au client
-        res.status(500).json({ message: "Erreur de serveur", error: error.message });
-    }
+    // Retourne une réponse d'erreur au client
+    res.status(500).json({ message: 'Erreur de serveur', error: error.message });
+  }
 });
 
 export default router;
