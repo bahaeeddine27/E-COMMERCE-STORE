@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Exécute le workflow lors de chaque push sur la branche 'main'
+      - master  # Exécute le workflow lors de chaque push sur la branche 'main'
   pull_request:
     branches:
-      - main  # Exécute le workflow lors de chaque pull request sur la branche 'main'
+      - master  # Exécute le workflow lors de chaque pull request sur la branche 'main'
 
 jobs:
   test:
