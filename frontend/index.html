@@ -1,17 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ✅ SEO Meta Tags -->
+    <title>DIGIT-SELL | Boutique en ligne</title>
+    <meta name="description" content="Découvrez les meilleurs produits numériques et high-tech.">
+    <meta name="keywords" content="Digit-Sell, boutique en ligne, high-tech, accessoires, gadgets">
+    <meta name="robots" content="index, follow">
+
+    <!-- ✅ Optimisation du chargement des polices -->
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <!-- ✅ Préchargement des styles -->
+    <link rel="preload" href="./src/index.css" as="style" />
     <link href="./src/index.css" rel="stylesheet" />
-    <title>DIGIT-SELL</title>
+
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- ✅ Chargement optimisé du script -->
+    <script type="module" src="/src/main.jsx" defer></script>
   </body>
 </html>

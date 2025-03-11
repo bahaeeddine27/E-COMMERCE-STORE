@@ -12,14 +12,12 @@ const categories = [
   {
     href: 'e-books',
     name: 'E-books',
-    imageUrl: '/product.jpg',
-    icon: <FaBook />,
+    icon: <FaBook className="text-emerald-400 text-5xl" />,
   },
   {
     href: 'cours',
     name: 'Cours',
-    imageUrl: '/product.jpg',
-    icon: <FaChalkboardTeacher />,
+    icon: <FaChalkboardTeacher className="text-emerald-400 text-5xl" />,
   },
 ];
 

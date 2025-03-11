@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import compression from 'compression';
 import authRoutes from './routes/auth.routes.js';
 import productRoutes from './routes/product.route.js';
 import cartRoutes from './routes/cart.route.js';
