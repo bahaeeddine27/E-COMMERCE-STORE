@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint \"src/**/*.{js,jsx}\" --fix",
     "preview": "vite preview",
+    "start": "vite preview",
     "test:e2e": "cypress run",
     "test": "vitest",
     "cypress:open": "cypress open",
