@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5000;
 // Configuration CORS pour autoriser l'envoi des cookies
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Remplace par l'URL de ton frontend
+    origin: 'https://digitsell.store', // Remplace par l'URL de ton frontend
     credentials: true, // Permet d'envoyer les cookies dans les requêtes
   })
 );
