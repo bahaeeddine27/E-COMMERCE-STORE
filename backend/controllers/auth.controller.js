@@ -22,14 +22,15 @@ const storeRefreshToken = async (userId, refreshToken) => {
 const setCookies = (res, accessToken, refreshToken) => {
   res.cookie('accessToken', accessToken, {
     httpOnly: true, // Empêche l'accès au cookie depuis le client JavaScript
-    secure: process.env.NODE_ENV === 'production' ? true : false, // Active le mode sécurisé en production
-    sameSite: 'Lax', // Empêche l'envoi du cookie dans les requêtes croisées
-    maxAge: 15 * 60 * 1000, // Valable 15 minutes.
+    secure: process.env.NODE_ENV === 'production', // Active le mode sécurisé en production
+    sameSite: 'None', // Nécessaire pour les cookies cross-origin
+    maxAge: 15 * 60 * 1000, // Valable 15 minutes
   });
+
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production' ? true : false,
-    sameSite: 'Lax',
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'None', // Nécessaire pour les cookies cross-origin
     maxAge: 7 * 24 * 60 * 60 * 1000, // Valable 7 jours
   });
 };
